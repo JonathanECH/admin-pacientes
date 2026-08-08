@@ -36,8 +36,7 @@ export default {
             placeholder:text-lg placeholder:text-gray-400 placeholder:font-semibold"
             placeholder="Síntomas del Paciente"></textarea>
 
-            <button type="submit" class="border border-indigo-600 w-full
-            text-white p-3 rounded-2xl mt-5 hover:bg-amber-300">Registrar</button>
+            <button type="submit" class="w-full rounded-md mt-5 text-white text-lg uppercase bg-indigo-600 hover:bg-indigo-700 hover:translate-y-1 duration-100 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md">Registrar Paciente</button>
         </form>
     </div>
 </template>
