@@ -1,16 +1,40 @@
 <script setup>
-    import { reactive, ref } from 'vue';
-    const form = reactive({
-        mascota: '',
-        propietario: '',
-        email: '',
-        alta: '',
-        sintomas: ''
-    })
+import { reactive } from 'vue';
+import Alerta from './Alerta.vue'
 
-    const validarForm = () => {
-        console.log('Validando formulario')
+const form = reactive({
+    mascota: '',
+    propietario: '',
+    email: '',
+    alta: '',
+    sintomas: ''
+});
+
+//Objeto que almacena las alertas
+const alerta = reactive({
+    tipo: '',
+    mensaje: ''
+})
+
+//Validamos los campos del form
+const validarForm = () => {
+    if (Object.values(form).includes('')) {
+        mostarAlerta('error', 'Todos los campos son obligatorios')//Mostramos el mensaje de error
+        return
     }
+    mostarAlerta('success', 'Paciente registrado correctamente')//Mostramos el mensaje de éxito
+    console.log('Formulario enviado')
+}
+
+const mostarAlerta = (tipo, mensaje) => {
+    alerta.mensaje = mensaje
+    alerta.tipo = tipo
+    //Limpiamos el mensaje después de 5 segundos
+    setTimeout(() => {
+        alerta.mensaje = ''
+        alerta.tipo = ''
+    }, 5000);
+}
 </script>
 
 <template lang="">
@@ -22,6 +46,10 @@
 
         <form class="bg-white shadow-md rounded-lg p-5"
         @submit.prevent="validarForm">
+
+            <!--* Aquí se mostrarán los mensajes de error o éxito -->
+            <Alerta v-if="alerta.mensaje" :alerta="alerta" />
+
             <div class="mb-5">
                 <label for="mascota" class="block font-bold text-gray-600 uppercase mt-5">Nombre Mascota</label>
                 <input id="mascota" type="text" class="w-full border-gray-100 rounded-md border-2 p-3
@@ -63,5 +91,6 @@
 
             <input type="submit" class="w-full rounded-md mt-5 text-white text-lg uppercase bg-indigo-600 hover:bg-indigo-700 hover:translate-y-1 transition-all duration-300 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md" value="Reguistrar Paciente"></input>
         </form>
+        <!--? Formulario -->
     </div>
 </template>
