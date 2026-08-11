@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted, watch } from 'vue';
 import { uid } from 'uid';
 import Header from './components/Header.vue';
 import Formulario from './components/Formulario.vue';
@@ -16,11 +16,24 @@ const form = reactive({
   sintomas: ''
 });
 
+watch(pacientes, () => {
+  guardarLocalStorage()
+}, {
+  deep: true
+})
+
+onMounted(() => {
+  const pacientesLocalStorage = localStorage.getItem('pacientes')
+  if(pacientesLocalStorage){
+    pacientes.value = JSON.parse(pacientesLocalStorage)
+  }
+})
+
 //Función para guardar un paciente en el arreglo pacientes
 const guardarPaciente = () => {
   if (form.id) {
     const index = pacientes.value.findIndex(paciente => paciente.id === form.id)
-    pacientes.value[index] = {...form}
+    pacientes.value[index] = { ...form }
   } else {
     pacientes.value.push({
       ...form,
@@ -47,6 +60,10 @@ const editarPaciente = id => {
     isEditar.value = true
   }
 }
+
+const guardarLocalStorage = () => {
+  localStorage.setItem('pacientes', JSON.stringify(pacientes.value))
+}
 </script>
 
 <template>
@@ -58,7 +75,8 @@ const editarPaciente = id => {
     <div class="mt-12 md:flex gap-3">
 
       <Formulario v-model:mascota="form.mascota" v-model:propietario="form.propietario" v-model:email="form.email"
-        v-model:alta="form.alta" v-model:sintomas="form.sintomas" @guardar-paciente="guardarPaciente" :isEditar="isEditar"/>
+        v-model:alta="form.alta" v-model:sintomas="form.sintomas" @guardar-paciente="guardarPaciente"
+        :isEditar="isEditar" />
       <!--* Componente del Formulario -->
 
       <div class="w-1/2 flex flex-col md:h-screen overflow-y-scroll">
