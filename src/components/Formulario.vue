@@ -42,8 +42,8 @@ const validarForm = () => {
         mostarAlerta('error', 'Todos los campos son obligatorios')//Mostramos el mensaje de error
         return
     }
-    mostarAlerta('success', 'Paciente registrado correctamente')//Mostramos el mensaje de éxito
     emit('guardar-paciente')
+    mostarAlerta('success', 'Paciente registrado correctamente')//Mostramos el mensaje de éxito
 }
 
 const mostarAlerta = (tipo, mensaje) => {

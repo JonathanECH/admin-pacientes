@@ -12,6 +12,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "tailwind-animations": "^1.0.2",
     "tailwindcss": "^4.3.3",
+    "uid": "^2.0.2",
     "vue": "^3.5.40"
   },
   "devDependencies": {
