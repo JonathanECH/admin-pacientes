@@ -33,6 +33,10 @@ const props = defineProps({
     sintomas: {
         type: String,
         required: true
+    },
+    isEditar: {
+        type: Boolean,
+        required: true
     }
 })
 
@@ -128,7 +132,7 @@ const mostarAlerta = (tipo, mensaje) => {
                 @input="$emit('update:sintomas', $event.target.value)"/>
             </div>
 
-            <input type="submit" class="w-full rounded-md mt-5 text-white text-lg uppercase bg-indigo-600 hover:bg-indigo-700 hover:translate-y-1 transition-all duration-300 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md" value="Reguistrar Paciente"></input>
+            <input type="submit" class="w-full rounded-md mt-5 text-white text-lg uppercase bg-indigo-600 hover:bg-indigo-700 hover:translate-y-1 transition-all duration-300 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md" :value="isEditar ? 'Editar Paciente': 'Reguistrar Paciente'"></input>
         </form>
         <!--? Formulario -->
     </div>

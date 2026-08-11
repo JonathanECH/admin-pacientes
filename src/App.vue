@@ -6,7 +6,7 @@ import Formulario from './components/Formulario.vue';
 import Paciente from './components/Paciente.vue';
 
 const pacientes = ref([])
-
+const isEditar = ref(false)
 const form = reactive({
   id: null,
   mascota: '',
@@ -44,6 +44,7 @@ const editarPaciente = id => {
   const pacienteAEditar = pacientes.value.find((paciente) => paciente.id === id);
   if (pacienteAEditar) {
     Object.assign(form, pacienteAEditar);//Se usa Object.assign para llevar los datos del paciente al form
+    isEditar.value = true
   }
 }
 </script>
@@ -57,7 +58,7 @@ const editarPaciente = id => {
     <div class="mt-12 md:flex gap-3">
 
       <Formulario v-model:mascota="form.mascota" v-model:propietario="form.propietario" v-model:email="form.email"
-        v-model:alta="form.alta" v-model:sintomas="form.sintomas" @guardar-paciente="guardarPaciente" />
+        v-model:alta="form.alta" v-model:sintomas="form.sintomas" @guardar-paciente="guardarPaciente" :isEditar="isEditar"/>
       <!--* Componente del Formulario -->
 
       <div class="w-1/2 flex flex-col md:h-screen overflow-y-scroll">
