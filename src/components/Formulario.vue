@@ -23,7 +23,6 @@ const validarForm = () => {
         return
     }
     mostarAlerta('success', 'Paciente registrado correctamente')//Mostramos el mensaje de éxito
-    console.log('Formulario enviado')
 }
 
 const mostarAlerta = (tipo, mensaje) => {
