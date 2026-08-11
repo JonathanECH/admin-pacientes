@@ -18,11 +18,16 @@ const form = reactive({
 
 //Función para guardar un paciente en el arreglo pacientes
 const guardarPaciente = () => {
-  pacientes.value.push({
-    ...form,
-    id: uid()
-  }) //Para quitarle la reactivida puedes usa Spread Operator (...)
-  
+  if (form.id) {
+    const index = pacientes.value.findIndex(paciente => paciente.id === form.id)
+    pacientes.value[index] = {...form}
+  } else {
+    pacientes.value.push({
+      ...form,
+      id: uid()
+    }) //Para quitarle la reactivida puedes usa Spread Operator (...)
+  }
+
   //Para limpiar el formulario se usa Object.assign
   //Primero se le pasa el objeto a limpiar/ Segundo se le pasa un objeto con lo que se va a remplazar
   Object.assign(form, {
@@ -30,8 +35,16 @@ const guardarPaciente = () => {
     propietario: '',
     email: '',
     alta: '',
-    sintomas: ''
+    sintomas: '',
+    id: null
   })
+}
+
+const editarPaciente = id => {
+  const pacienteAEditar = pacientes.value.find((paciente) => paciente.id === id);
+  if (pacienteAEditar) {
+    Object.assign(form, pacienteAEditar);//Se usa Object.assign para llevar los datos del paciente al form
+  }
 }
 </script>
 
@@ -54,12 +67,11 @@ const guardarPaciente = () => {
             <span class="text-indigo-600 font-bold">Pacientes</span>
           </p>
 
-          <Paciente v-for="paciente in pacientes" :paciente="paciente" />
+          <Paciente v-for="paciente in pacientes" :paciente="paciente" @editar-paciente="editarPaciente" />
           <!--* Componente del Paciente -->
 
         </div>
-        <p v-else
-          class="inline px-2 py-1 border-2 border-gray-300 mt-22
+        <p v-else class="inline px-2 py-1 border-2 border-gray-300 mt-22
           text-center text-2xl text-gray-500 font-semibold bg-gray-200 rounded-2xl self-center">
           No hay pacientes</p>
       </div>

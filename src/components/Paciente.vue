@@ -51,6 +51,7 @@ const emit = defineEmits(['editar-paciente'])
             <button 
                 type="button"
                 class="block w-full py-2 px-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold uppercase rounded-lg"
+                @click="$emit('editar-paciente', paciente.id)"
             >Editar</button>
 
             <button 
