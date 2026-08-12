@@ -4,6 +4,7 @@ import { uid } from 'uid';
 import Header from './components/Header.vue';
 import Formulario from './components/Formulario.vue';
 import Paciente from './components/Paciente.vue';
+import Modal from './components/Modal.vue';
 
 const pacientes = ref([])
 const formScroll = ref(null)
@@ -16,10 +17,17 @@ const form = reactive({
   sintomas: ''
 });
 
+const modal = ref(false)
+const idDelete = ref(null)
+
 watch(pacientes, () => {
   guardarLocalStorage()
 }, {
   deep: true
+})
+
+watch(modal, (isModalVisible) => {
+  document.body.classList.toggle('overflow-hidden', isModalVisible)
 })
 
 onMounted(() => {
@@ -93,9 +101,22 @@ const cancelarEdicion = () => {
   })
 }
 
+//Función para mostrar el modal
+const mostrarModal = id => {
+  modal.value = true
+  idDelete.value = id
+}
+
 //Función para eliminar un paciente
-const eliminarPaciente = id => {
-  pacientes.value = pacientes.value.filter(paciente => paciente.id !== id)
+const closeModal = () => {
+  modal.value = false
+  idDelete.value = null // Se reinicia la variable
+}
+
+//Función para eliminar un paciente
+const eliminarPaciente = () => {
+  modal.value = false
+  pacientes.value = pacientes.value.filter(paciente => paciente.id !== idDelete.value)
   mostrarAlerta('success', 'Paciente eliminado correctamente')
   formScroll.value.$el.scrollIntoView({ behavior: 'smooth' })
 }
@@ -112,7 +133,7 @@ const guardarLocalStorage = () => {
     <!--* Componente del Header -->
 
     <div class="mt-12 mx-5 md:flex gap-5">
-
+      <Modal :modal="modal" @close-modal="closeModal" @delete-paciente="eliminarPaciente" />
       <Formulario ref="formScroll" v-model:mascota="form.mascota" v-model:propietario="form.propietario"
         v-model:email="form.email" v-model:alta="form.alta" v-model:sintomas="form.sintomas"
         @guardar-paciente="guardarPaciente" @mostrar-alerta="mostrarAlerta" @cancelar-edicion="cancelarEdicion"
@@ -127,11 +148,11 @@ const guardarLocalStorage = () => {
           </p>
 
           <Paciente v-for="paciente in pacientes" :paciente="paciente" @editar-paciente="editarPaciente"
-            @eliminar-paciente="eliminarPaciente" />
+            @mostrar-modal="mostrarModal" />
           <!--* Componente del Paciente -->
 
         </div>
-        <p v-else class="inline px-2 py-1 border-2 border-gray-300 mt-22
+        <p v-else class="inline px-2 py-1 border-2 border-gray-300 mt-9 md:mt-22
           text-center text-2xl text-gray-500 font-semibold bg-gray-200 rounded-2xl self-center">
           No hay pacientes</p>
       </div>

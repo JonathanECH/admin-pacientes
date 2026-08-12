@@ -8,7 +8,7 @@ const props = defineProps({
 })
 
 //Defino los emits para eliminar ó editar un paciente
-const emit = defineEmits(['editar-paciente', 'eliminar-paciente'])
+const emit = defineEmits(['editar-paciente', 'mostrar-modal'])
 </script>
 <template lang="">
 <div class="my-10 bg-white shadow-md px-5 py-10 rounded-xl">
@@ -60,7 +60,7 @@ const emit = defineEmits(['editar-paciente', 'eliminar-paciente'])
                 type="button"
                 class="block w-full py-2 px-10 bg-red-600 hover:bg-red-700
                 cursor-pointer text-white font-bold uppercase rounded-lg"
-                @click="$emit('eliminar-paciente', paciente.id)"
+                @click="$emit('mostrar-modal', paciente.id)"
             >Eliminar</button>
         </div>
     </div>
