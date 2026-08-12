@@ -11,8 +11,8 @@ const emit = defineEmits(['close-modal', 'delete-paciente'])
 </script>
 <template>
     <div v-if="modal"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 transition-opacity duration-300 ease-in-out">
-        <div class="bg-white rounded-lg shadow-xl p-8 m-4 max-w-md w-full transform transition-all duration-300 ease-in-out">
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 transition-opacity duration-300 ease-in-out">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full transform transition-all duration-300 ease-in-out">
             <h3 class="font-bold text-2xl text-center text-gray-800 mb-6">¿Confirmar Eliminación?</h3>
             <p class="text-gray-600 text-center mb-8">Un paciente eliminado no se puede recuperar.</p>
             <div class="flex justify-center gap-4">
