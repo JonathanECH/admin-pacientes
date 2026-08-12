@@ -124,7 +124,7 @@ const editando = computed(() => {
                 @input="$emit('update:sintomas', $event.target.value)"/>
             </div>
 
-            <div class="mt-5" :class="[editando ? 'grid grid-cols-2 gap-4' : '']">
+            <div class="mt-5" :class="{'grid grid-cols-2 gap-4' : editando}">
                 <button v-if="editando" type="button" class="w-full rounded-md text-white text-lg uppercase bg-gray-600 hover:bg-gray-700 hover:translate-y-1 transition-all duration-300 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md"
                 @click="$emit('cancelar-edicion')">
                     Cancelar
