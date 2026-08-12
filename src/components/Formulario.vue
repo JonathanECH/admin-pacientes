@@ -2,16 +2,9 @@
 import { computed, reactive } from 'vue';
 import Alerta from './Alerta.vue'
 
-
-//Objeto que almacena las alertas
-const alerta = reactive({
-    tipo: '',
-    mensaje: ''
-})
-
 //Definimos los Emits
 const emit = defineEmits(['update:mascota', 'update:propietario', 'update:email',
-    'update:alta', 'update:sintomas', 'guardar-paciente'])
+    'update:alta', 'update:sintomas', 'guardar-paciente', 'mostrar-alerta'])
 
 //Definimos los Props
 const props = defineProps({
@@ -38,28 +31,22 @@ const props = defineProps({
     sintomas: {
         type: String,
         required: true
+    },
+    alerta:{
+        type: Object,
+        required: true
     }
 })
 
 //Validamos los campos del form
 const validarForm = () => {
     if (Object.values(props).includes('')) {
-        mostarAlerta('error', 'Todos los campos son obligatorios')//Mostramos el mensaje de error
+        emit('mostrar-alerta','error', 'Todos los campos son obligatorios')//Mostramos el mensaje de error
         return
     }
     emit('guardar-paciente')
-    mostarAlerta('success', 'Paciente registrado correctamente')//Mostramos el mensaje de éxito
 }
 
-const mostarAlerta = (tipo, mensaje) => {
-    alerta.mensaje = mensaje
-    alerta.tipo = tipo
-    //Limpiamos el mensaje después de 5 segundos
-    setTimeout(() => {
-        alerta.mensaje = ''
-        alerta.tipo = ''
-    }, 5000);
-}
 
 const editando = computed(() => {
     return props.id
@@ -77,7 +64,7 @@ const editando = computed(() => {
         @submit.prevent="validarForm">
 
             <!--* Aquí se mostrarán los mensajes de error o éxito -->
-            <Alerta v-if="alerta.mensaje" :alerta="alerta" />
+            <Alerta v-if="props.alerta.mensaje" :alerta="props.alerta" />
 
             <div class="mb-5">
                 <label for="mascota" class="block font-bold text-gray-600 uppercase mt-5">Nombre Mascota</label>

@@ -28,16 +28,35 @@ onMounted(() => {
   }
 })
 
+//Objeto que almacena las alertas
+const alerta = reactive({
+    tipo: '',
+    mensaje: ''
+})
+
+//Función para mostrar el mensaje en el form
+const mostrarAlerta = (tipo, mensaje) => {
+    alerta.mensaje = mensaje
+    alerta.tipo = tipo
+    //Limpiamos el mensaje después de 5 segundos
+    setTimeout(() => {
+        alerta.mensaje = ''
+        alerta.tipo = ''
+    }, 5000);
+}
+
 //Función para guardar un paciente en el arreglo pacientes
 const guardarPaciente = () => {
   if (form.id) {
     const index = pacientes.value.findIndex(paciente => paciente.id === form.id)
     pacientes.value[index] = { ...form }
+    mostrarAlerta('success', 'Paciente editado correctamente')//Mostramos el mensaje de éxito
   } else {
     pacientes.value.push({
       ...form,
       id: uid()
     }) //Para quitarle la reactividad se usa Spread Operator (...)
+    mostrarAlerta('success', 'Paciente registrado correctamente')//Mostramos el mensaje de éxito
   }
 
   //Para limpiar el formulario se usa Object.assign
@@ -63,6 +82,7 @@ const editarPaciente = id => {
 //Función para eliminar un paciente
 const eliminarPaciente = id => {
   pacientes.value = pacientes.value.filter(paciente => paciente.id !== id)
+  mostrarAlerta('success','Paciente eliminado correctamente')
 }
 
 const guardarLocalStorage = () => {
@@ -80,6 +100,8 @@ const guardarLocalStorage = () => {
 
       <Formulario v-model:mascota="form.mascota" v-model:propietario="form.propietario" v-model:email="form.email"
         v-model:alta="form.alta" v-model:sintomas="form.sintomas" @guardar-paciente="guardarPaciente"
+        @mostrar-alerta="mostrarAlerta"
+        :alerta="alerta"
         :id="form.id"/>
       <!--* Componente del Formulario -->
 
