@@ -6,6 +6,7 @@ import Formulario from './components/Formulario.vue';
 import Paciente from './components/Paciente.vue';
 
 const pacientes = ref([])
+const formScroll = ref(null)
 const form = reactive({
   id: null,
   mascota: '',
@@ -30,19 +31,19 @@ onMounted(() => {
 
 //Objeto que almacena las alertas
 const alerta = reactive({
-    tipo: '',
-    mensaje: ''
+  tipo: '',
+  mensaje: ''
 })
 
 //Función para mostrar el mensaje en el form
 const mostrarAlerta = (tipo, mensaje) => {
-    alerta.mensaje = mensaje
-    alerta.tipo = tipo
-    //Limpiamos el mensaje después de 5 segundos
-    setTimeout(() => {
-        alerta.mensaje = ''
-        alerta.tipo = ''
-    }, 5000);
+  alerta.mensaje = mensaje
+  alerta.tipo = tipo
+  //Limpiamos el mensaje después de 5 segundos
+  setTimeout(() => {
+    alerta.mensaje = ''
+    alerta.tipo = ''
+  }, 5000);
 }
 
 //Función para guardar un paciente en el arreglo pacientes
@@ -76,13 +77,15 @@ const editarPaciente = id => {
   const pacienteAEditar = pacientes.value.find((paciente) => paciente.id === id);
   if (pacienteAEditar) {
     Object.assign(form, pacienteAEditar);//Se usa Object.assign para llevar los datos del paciente al form
+    formScroll.value.$el.scrollIntoView({ behavior: 'smooth' })
   }
 }
 
 //Función para eliminar un paciente
 const eliminarPaciente = id => {
   pacientes.value = pacientes.value.filter(paciente => paciente.id !== id)
-  mostrarAlerta('success','Paciente eliminado correctamente')
+  mostrarAlerta('success', 'Paciente eliminado correctamente')
+  formScroll.value.$el.scrollIntoView({ behavior: 'smooth' })
 }
 
 const guardarLocalStorage = () => {
@@ -98,11 +101,9 @@ const guardarLocalStorage = () => {
 
     <div class="mt-12 mx-5 md:flex gap-5">
 
-      <Formulario v-model:mascota="form.mascota" v-model:propietario="form.propietario" v-model:email="form.email"
-        v-model:alta="form.alta" v-model:sintomas="form.sintomas" @guardar-paciente="guardarPaciente"
-        @mostrar-alerta="mostrarAlerta"
-        :alerta="alerta"
-        :id="form.id"/>
+      <Formulario ref="formScroll" v-model:mascota="form.mascota" v-model:propietario="form.propietario"
+        v-model:email="form.email" v-model:alta="form.alta" v-model:sintomas="form.sintomas"
+        @guardar-paciente="guardarPaciente" @mostrar-alerta="mostrarAlerta" :alerta="alerta" :id="form.id" />
       <!--* Componente del Formulario -->
 
       <div class="md:w-1/2 flex flex-col md:h-screen overflow-y-scroll">
@@ -112,8 +113,7 @@ const guardarLocalStorage = () => {
             <span class="text-indigo-600 font-bold">Pacientes</span>
           </p>
 
-          <Paciente v-for="paciente in pacientes" 
-          :paciente="paciente" @editar-paciente="editarPaciente"
+          <Paciente v-for="paciente in pacientes" :paciente="paciente" @editar-paciente="editarPaciente"
             @eliminar-paciente="eliminarPaciente" />
           <!--* Componente del Paciente -->
 
