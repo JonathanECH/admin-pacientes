@@ -6,14 +6,17 @@ Este proyecto es una aplicación web para la administración de pacientes de una
 
 - **Gestión de Pacientes (CRUD):**
   - **Crear:** Añadir nuevos pacientes a través de un formulario interactivo.
-  - **Editar:** Modificar la información de pacientes existentes.
-  - **Eliminar:** Borrar pacientes del listado.
+  - **Editar:** Modificar la información de pacientes existentes, con la opción de cancelar la edición.
+  - **Eliminar:** Borrar pacientes del listado, con un modal de confirmación para evitar eliminaciones accidentales.
 - **Persistencia de Datos:** La información de los pacientes se guarda en el `localStorage` del navegador, por lo que los datos persisten entre sesiones.
 - **Reactividad:** La interfaz de usuario se actualiza automáticamente al agregar, editar o eliminar pacientes gracias a la reactividad de Vue.
-- **Componentes Reutilizables:** El proyecto está estructurado en componentes como `Header`, `Formulario`, `Paciente` y `Alerta` para una mejor organización y mantenibilidad.
+- **Componentes Reutilizables:** El proyecto está estructurado en componentes como `Header`, `Formulario`, `Paciente`, `Alerta` y `Modal` para una mejor organización y mantenibilidad.
 - **Validación de Formularios:** Se valida que todos los campos del formulario estén completos antes de guardar un paciente.
 - **Alertas Dinámicas:** Se muestran notificaciones al usuario para confirmar acciones exitosas (guardar, editar, eliminar) o para informar de errores (campos vacíos).
 - **Diseño Responsivo:** La interfaz está diseñada con Tailwind CSS para adaptarse a diferentes tamaños de pantalla, desde móviles hasta escritorios.
+- **Experiencia de Usuario Mejorada:**
+  - Scroll automático al formulario al editar un paciente.
+  - Bloqueo del scroll de la página cuando el modal de confirmación está activo.
 
 ## 🌐 Demo en Vivo
 
