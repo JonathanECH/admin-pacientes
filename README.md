@@ -45,12 +45,12 @@ Sigue estos pasos para ejecutar el proyecto en tu entorno local:
 
 3.  **Instalar las dependencias:**
     ```bash
-    npm install
+    pnpm install
     ```
 
 4.  **Ejecutar el servidor de desarrollo:**
     ```bash
-    npm run dev
+    pnpm dev
     ```
 
 ¡Y listo! La aplicación estará disponible en `http://localhost:5173` (o el puerto que Vite indique).
