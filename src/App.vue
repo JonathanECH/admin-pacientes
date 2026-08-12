@@ -81,6 +81,18 @@ const editarPaciente = id => {
   }
 }
 
+//Función para editar un paciente
+const cancelarEdicion = () => {
+  Object.assign(form, {
+    mascota: '',
+    propietario: '',
+    email: '',
+    alta: '',
+    sintomas: '',
+    id: null
+  })
+}
+
 //Función para eliminar un paciente
 const eliminarPaciente = id => {
   pacientes.value = pacientes.value.filter(paciente => paciente.id !== id)
@@ -103,7 +115,8 @@ const guardarLocalStorage = () => {
 
       <Formulario ref="formScroll" v-model:mascota="form.mascota" v-model:propietario="form.propietario"
         v-model:email="form.email" v-model:alta="form.alta" v-model:sintomas="form.sintomas"
-        @guardar-paciente="guardarPaciente" @mostrar-alerta="mostrarAlerta" :alerta="alerta" :id="form.id" />
+        @guardar-paciente="guardarPaciente" @mostrar-alerta="mostrarAlerta" @cancelar-edicion="cancelarEdicion"
+        :alerta="alerta" :id="form.id" />
       <!--* Componente del Formulario -->
 
       <div class="md:w-1/2 flex flex-col md:h-screen overflow-y-scroll">

@@ -4,7 +4,7 @@ import Alerta from './Alerta.vue'
 
 //Definimos los Emits
 const emit = defineEmits(['update:mascota', 'update:propietario', 'update:email',
-    'update:alta', 'update:sintomas', 'guardar-paciente', 'mostrar-alerta'])
+    'update:alta', 'update:sintomas', 'guardar-paciente', 'mostrar-alerta', 'cancelar-edicion'])
 
 //Definimos los Props
 const props = defineProps({
@@ -124,7 +124,13 @@ const editando = computed(() => {
                 @input="$emit('update:sintomas', $event.target.value)"/>
             </div>
 
-            <input type="submit" class="w-full rounded-md mt-5 text-white text-lg uppercase bg-indigo-600 hover:bg-indigo-700 hover:translate-y-1 transition-all duration-300 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md" :value="[editando ? 'Editar Paciente': 'Registrar Paciente']"></input>
+            <div class="mt-5" :class="[editando ? 'grid grid-cols-2 gap-4' : '']">
+                <button v-if="editando" type="button" class="w-full rounded-md text-white text-lg uppercase bg-gray-600 hover:bg-gray-700 hover:translate-y-1 transition-all duration-300 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md"
+                @click="$emit('cancelar-edicion')">
+                    Cancelar
+                </button>
+                <input type="submit" class="w-full rounded-md text-white text-lg uppercase bg-indigo-600 hover:bg-indigo-700 hover:translate-y-1 transition-all duration-300 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md" :value="[editando ? 'Editar Paciente': 'Registrar Paciente']" />
+            </div>
         </form>
         <!--? Formulario -->
     </div>
