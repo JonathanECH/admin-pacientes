@@ -6,7 +6,6 @@ import Formulario from './components/Formulario.vue';
 import Paciente from './components/Paciente.vue';
 
 const pacientes = ref([])
-const isEditar = ref(false)
 const form = reactive({
   id: null,
   mascota: '',
@@ -24,7 +23,7 @@ watch(pacientes, () => {
 
 onMounted(() => {
   const pacientesLocalStorage = localStorage.getItem('pacientes')
-  if(pacientesLocalStorage){
+  if (pacientesLocalStorage) {
     pacientes.value = JSON.parse(pacientesLocalStorage)
   }
 })
@@ -38,11 +37,11 @@ const guardarPaciente = () => {
     pacientes.value.push({
       ...form,
       id: uid()
-    }) //Para quitarle la reactivida puedes usa Spread Operator (...)
+    }) //Para quitarle la reactividad se usa Spread Operator (...)
   }
 
   //Para limpiar el formulario se usa Object.assign
-  //Primero se le pasa el objeto a limpiar/ Segundo se le pasa un objeto con lo que se va a remplazar
+  //Primero se le pasa el objeto a limpiar y segundo, un objeto con lo que se va a reemplazar
   Object.assign(form, {
     mascota: '',
     propietario: '',
@@ -53,12 +52,17 @@ const guardarPaciente = () => {
   })
 }
 
+//Función para editar un paciente
 const editarPaciente = id => {
   const pacienteAEditar = pacientes.value.find((paciente) => paciente.id === id);
   if (pacienteAEditar) {
     Object.assign(form, pacienteAEditar);//Se usa Object.assign para llevar los datos del paciente al form
-    isEditar.value = true
   }
+}
+
+//Función para eliminar un paciente
+const eliminarPaciente = id => {
+  pacientes.value = pacientes.value.filter(paciente => paciente.id !== id)
 }
 
 const guardarLocalStorage = () => {
@@ -72,21 +76,23 @@ const guardarLocalStorage = () => {
     <Header />
     <!--* Componente del Header -->
 
-    <div class="mt-12 md:flex gap-3">
+    <div class="mt-12 mx-5 md:flex gap-5">
 
       <Formulario v-model:mascota="form.mascota" v-model:propietario="form.propietario" v-model:email="form.email"
         v-model:alta="form.alta" v-model:sintomas="form.sintomas" @guardar-paciente="guardarPaciente"
-        :isEditar="isEditar" />
+        :id="form.id"/>
       <!--* Componente del Formulario -->
 
-      <div class="w-1/2 flex flex-col md:h-screen overflow-y-scroll">
+      <div class="md:w-1/2 flex flex-col md:h-screen overflow-y-scroll">
         <h3 class="font-black text-3xl text-center">Administra tus Pacientes</h3>
         <div v-if="pacientes.length > 0">
           <p class="text-lg mt-5 text-center mb-10">Información de
             <span class="text-indigo-600 font-bold">Pacientes</span>
           </p>
 
-          <Paciente v-for="paciente in pacientes" :paciente="paciente" @editar-paciente="editarPaciente" />
+          <Paciente v-for="paciente in pacientes" 
+          :paciente="paciente" @editar-paciente="editarPaciente"
+            @eliminar-paciente="eliminarPaciente" />
           <!--* Componente del Paciente -->
 
         </div>

@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
 import Alerta from './Alerta.vue'
 
 
@@ -10,10 +10,15 @@ const alerta = reactive({
 })
 
 //Definimos los Emits
-const emit = defineEmits(['update:mascota', 'update:propietario', 'update:email', 'update:alta', 'update:sintomas', 'guardar-paciente'])
+const emit = defineEmits(['update:mascota', 'update:propietario', 'update:email',
+    'update:alta', 'update:sintomas', 'guardar-paciente'])
 
 //Definimos los Props
 const props = defineProps({
+    id: {
+        type: [String, null],
+        required: true
+    },
     mascota: {
         type: String,
         required: true
@@ -32,10 +37,6 @@ const props = defineProps({
     },
     sintomas: {
         type: String,
-        required: true
-    },
-    isEditar: {
-        type: Boolean,
         required: true
     }
 })
@@ -59,10 +60,14 @@ const mostarAlerta = (tipo, mensaje) => {
         alerta.tipo = ''
     }, 5000);
 }
+
+const editando = computed(() => {
+    return props.id
+})
 </script>
 
 <template lang="">
-    <div class="md:w-1/2 mb-10">
+    <div class="md:w-1/2 lg:w-4xl mb-10">
         <h2 class="font-black text-3xl text-center">Seguimiento Pacientes</h2>
         <p class="text-lg mt-5 text-center mb-10">Añade Pacientes y
             <span class="text-indigo-600 font-bold">Adminístralos</span>
@@ -132,7 +137,7 @@ const mostarAlerta = (tipo, mensaje) => {
                 @input="$emit('update:sintomas', $event.target.value)"/>
             </div>
 
-            <input type="submit" class="w-full rounded-md mt-5 text-white text-lg uppercase bg-indigo-600 hover:bg-indigo-700 hover:translate-y-1 transition-all duration-300 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md" :value="isEditar ? 'Editar Paciente': 'Reguistrar Paciente'"></input>
+            <input type="submit" class="w-full rounded-md mt-5 text-white text-lg uppercase bg-indigo-600 hover:bg-indigo-700 hover:translate-y-1 transition-all duration-300 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md" :value="[editando ? 'Editar Paciente': 'Registrar Paciente']"></input>
         </form>
         <!--? Formulario -->
     </div>
