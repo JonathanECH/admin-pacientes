@@ -129,7 +129,11 @@ const editando = computed(() => {
                 @click="$emit('cancelar-edicion')">
                     Cancelar
                 </button>
-                <input type="submit" class="w-full rounded-md text-white text-lg uppercase bg-indigo-600 hover:bg-indigo-700 hover:translate-y-1 transition-all duration-300 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md" :value="[editando ? 'Editar Paciente': 'Registrar Paciente']" />
+                <button v-if="editando" type="submit" class="w-full rounded-md text-white text-lg uppercase bg-indigo-600 hover:bg-indigo-700 hover:translate-y-1 transition-all duration-300 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md">
+                    <span class="md:hidden">Editar</span>
+                    <span class="hidden md:inline">Editar Paciente</span>
+                </button>
+                <input v-else type="submit" class="w-full rounded-md text-white text-lg uppercase bg-indigo-600 hover:bg-indigo-700 hover:translate-y-1 transition-all duration-300 ease-in-out box-border border border-transparent focus:outline-none font-bold leading-5 px-4 py-2.5 inline-flex items-center justify-center cursor-pointer shadow-md" value="Registrar Paciente" />
             </div>
         </form>
         <!--? Formulario -->
