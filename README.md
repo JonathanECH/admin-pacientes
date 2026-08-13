@@ -14,6 +14,7 @@ Este proyecto es una aplicación web para la administración de pacientes de una
 - **Validación de Formularios:** Se valida que todos los campos del formulario estén completos antes de guardar un paciente.
 - **Alertas Dinámicas:** Se muestran notificaciones al usuario para confirmar acciones exitosas (guardar, editar, eliminar) o para informar de errores (campos vacíos).
 - **Diseño Responsivo:** La interfaz está diseñada con Tailwind CSS para adaptarse a diferentes tamaños de pantalla, desde móviles hasta escritorios.
+- **Modo Oscuro Persistente:** La aplicación cuenta con un modo oscuro que mejora la experiencia visual en entornos con poca luz. La preferencia del usuario se guarda localmente para futuras visitas.
 - **Experiencia de Usuario Mejorada:**
   - Scroll automático al formulario al editar un paciente.
   - Bloqueo del scroll de la página cuando el modal de confirmación está activo.
