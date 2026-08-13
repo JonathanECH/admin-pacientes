@@ -11,38 +11,38 @@ const props = defineProps({
 const emit = defineEmits(['editar-paciente', 'mostrar-modal'])
 </script>
 <template lang="">
-<div class="my-10 bg-white shadow-md px-5 py-10 rounded-xl">
-        <p class="font-bold mb-3 text-gray-700 uppercase">ID:
+<div class="my-10 bg-white dark:bg-gray-800 shadow-md px-5 py-10 rounded-xl">
+        <p class="font-bold mb-3 text-gray-700 dark:text-gray-300 uppercase">ID:
             <span class="font-normal normal-case">
             {{paciente.id}}
             </span>
         </p>
 
-        <p class="font-bold mb-3 text-gray-700 uppercase">Nombre:
+        <p class="font-bold mb-3 text-gray-700 dark:text-gray-300 uppercase">Nombre:
             <span class="font-normal normal-case">
             {{paciente.mascota}}
             </span>
         </p>
 
-        <p class="font-bold mb-3 text-gray-700 uppercase">Propietario: 
+        <p class="font-bold mb-3 text-gray-700 dark:text-gray-300 uppercase">Propietario: 
             <span class="font-normal normal-case">
             {{paciente.propietario}}
             </span>
         </p>
 
-        <p class="font-bold mb-3 text-gray-700 uppercase">Email: 
+        <p class="font-bold mb-3 text-gray-700 dark:text-gray-300 uppercase">Email: 
             <span class="font-normal normal-case">
             {{paciente.email}}
             </span>
         </p>
 
-        <p class="font-bold mb-3 text-gray-700 uppercase">Fecha Alta:
+        <p class="font-bold mb-3 text-gray-700 dark:text-gray-300 uppercase">Fecha Alta:
             <span class="font-normal normal-case">
             {{paciente.alta}}
             </span>
         </p>
 
-        <p class="font-bold mb-3 text-gray-700 uppercase">Síntomas:
+        <p class="font-bold mb-3 text-gray-700 dark:text-gray-300 uppercase">Síntomas:
             <span class="font-normal normal-case">
             {{paciente.sintomas}}
             </span>

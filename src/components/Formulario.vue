@@ -55,70 +55,70 @@ const editando = computed(() => {
 
 <template lang="">
     <div class="md:w-1/2 lg:w-4xl mb-10">
-        <h2 class="font-black text-3xl text-center">Seguimiento Pacientes</h2>
-        <p class="text-lg mt-5 text-center mb-10">Añade Pacientes y
-            <span class="text-indigo-600 font-bold">Adminístralos</span>
+        <h2 class="font-black text-3xl text-center dark:text-gray-100">Seguimiento Pacientes</h2>
+        <p class="text-lg mt-5 text-center mb-10 dark:text-gray-300">Añade Pacientes y
+            <span class="text-indigo-600 dark:text-indigo-400 font-bold">Adminístralos</span>
         </p>
 
-        <form class="bg-white shadow-md rounded-lg p-5"
+        <form class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5"
         @submit.prevent="validarForm">
 
             <!--* Aquí se mostrarán los mensajes de error o éxito -->
             <Alerta v-if="props.alerta.mensaje" :alerta="props.alerta" />
 
             <div class="mb-5">
-                <label for="mascota" class="block font-bold text-gray-600 uppercase mt-5">Nombre Mascota</label>
+                <label for="mascota" class="block font-bold text-gray-600 dark:text-gray-300 uppercase mt-5">Nombre Mascota</label>
                 <input 
                 id="mascota"
                 type="text"
-                class="w-full border-gray-100 rounded-md border-2 p-3
-                placeholder:text-lg placeholder:text-gray-500 placeholder:font-medium"
+                class="w-full border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white rounded-md border-2 p-3
+                placeholder:text-lg placeholder:text-gray-400 dark:placeholder:text-gray-400 placeholder:font-medium"
                 placeholder="Nombre de la Mascota"
                 :value="mascota"
                 @input="$emit('update:mascota', $event.target.value)"></input>
             </div>
 
             <div class="mb-5">
-                <label for="propietario" class="block font-bold text-gray-600 uppercase mt-5">Nombre Propietario</label>
+                <label for="propietario" class="block font-bold text-gray-600 dark:text-gray-300 uppercase mt-5">Nombre Propietario</label>
                 <input 
                 id="propietario"
                 type="text"
-                class="w-full border-gray-100 rounded-md border-2 p-3
-                placeholder:text-lg placeholder:text-gray-500 placeholder:font-medium"
+                class="w-full border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white rounded-md border-2 p-3
+                placeholder:text-lg placeholder:text-gray-400 dark:placeholder:text-gray-400 placeholder:font-medium"
                 placeholder="Nombre del Propietario"
                 :value="propietario"
                 @input="$emit('update:propietario', $event.target.value)"></input>
             </div>
 
             <div class="mb-5">
-                <label for="email" class="block font-bold text-gray-600 uppercase mt-5">Email</label>
+                <label for="email" class="block font-bold text-gray-600 dark:text-gray-300 uppercase mt-5">Email</label>
                 <input 
                 id="email"
                 type="email"
-                class="w-full border-gray-100 rounded-md border-2 p-3
-                placeholder:text-lg placeholder:text-gray-500 placeholder:font-medium"
+                class="w-full border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white rounded-md border-2 p-3
+                placeholder:text-lg placeholder:text-gray-400 dark:placeholder:text-gray-400 placeholder:font-medium"
                 placeholder="Email de contacto del Propietario"
                 :value="email"
                 @input="$emit('update:email', $event.target.value)"></input>
             </div>
 
             <div class="mb-5">
-                <label for="alta" class="block font-bold text-gray-600 uppercase mt-5">Alta</label>
+                <label for="alta" class="block font-bold text-gray-600 dark:text-gray-300 uppercase mt-5">Alta</label>
                 <input 
                 id="alta"
                 type="date"
-                class="w-full border-gray-100 rounded-md border-2 p-3 cursor-pointer
-                placeholder:text-lg placeholder:text-gray-500 placeholder:font-medium"
+                class="w-full border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white rounded-md border-2 p-3 cursor-pointer
+                dark:[color-scheme:dark]"
                 :value="alta"
                 @input="$emit('update:alta', $event.target.value)"></input>
             </div>
 
             <div class="mb-5">
-                <label for="sintomas" class="block font-bold text-gray-600 uppercase mt-5">Síntomas</label>
+                <label for="sintomas" class="block font-bold text-gray-600 dark:text-gray-300 uppercase mt-5">Síntomas</label>
                 <textarea 
                 id="sintomas"
-                class="w-full border-gray-100 rounded-md border-2 p-3 resize-none
-                placeholder:text-lg placeholder:text-gray-500 placeholder:font-medium"
+                class="w-full border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white rounded-md border-2 p-3 resize-none
+                placeholder:text-lg placeholder:text-gray-400 dark:placeholder:text-gray-400 placeholder:font-medium"
                 placeholder="Síntomas del Paciente"
                 :value="sintomas"
                 @input="$emit('update:sintomas', $event.target.value)"/>
